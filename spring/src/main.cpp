@@ -26,7 +26,83 @@ void InitScene(ifx::GameLoop* game_loop){
     auto mass_object = ifx::RenderObjectFactory().CreateMassSpring();
     InitSpringSimulation(game_loop, spring_object.get(), mass_object.get());
 
+/*
     scene->AddRenderObject(std::move(ifx::RenderObjectFactory().CreateRoom()));
+*/
+    auto floor1 = ifx::RenderObjectFactory().CreateFloor();
+    auto floor2 = ifx::RenderObjectFactory().CreateFloor();
+    auto floor3 = ifx::RenderObjectFactory().CreateFloor();
+    auto floor4 = ifx::RenderObjectFactory().CreateFloor();
+    auto floor5 = ifx::RenderObjectFactory().CreateFloor();
+    auto floor6 = ifx::RenderObjectFactory().CreateFloor();
+
+    float scaleFactor = 2.0f;
+    float a = 2.0f;
+    floor1->scale(glm::vec3(scaleFactor, scaleFactor, scaleFactor));
+    floor1->rotateTo(glm::vec3(90, 0, 0));
+    floor1->moveTo(glm::vec3(0, -a, 0));
+    floor2->scale(glm::vec3(scaleFactor, scaleFactor, scaleFactor));
+    floor2->rotateTo(glm::vec3(90, 0, 0));
+    floor2->moveTo(glm::vec3(0, a, 0));
+
+    floor3->scale(glm::vec3(scaleFactor, scaleFactor, scaleFactor));
+    floor3->rotateTo(glm::vec3(0, 0, 0));
+    floor3->moveTo(glm::vec3(0, 0.0, -a));
+
+    floor4->scale(glm::vec3(scaleFactor, scaleFactor, scaleFactor));
+    floor4->rotateTo(glm::vec3(0, 0, 0));
+    floor4->moveTo(glm::vec3(0, 0.0, a));
+
+    floor5->scale(glm::vec3(scaleFactor, scaleFactor, scaleFactor));
+    floor5->rotateTo(glm::vec3(0, 90, 0));
+    floor5->moveTo(glm::vec3(a, 0.0, 0));
+
+    floor6->scale(glm::vec3(scaleFactor, scaleFactor, scaleFactor));
+    floor6->rotateTo(glm::vec3(0, 90, 0));
+    floor6->moveTo(glm::vec3(-a, 0.0, 0));
+
+    floor2->SetBeforeRender([](const Program* program){
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_FRONT);
+    });
+    floor2->SetAfterRender([](const Program* program){
+        glDisable(GL_CULL_FACE);
+    });
+    floor3->SetBeforeRender([](const Program* program){
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_FRONT);
+    });
+    floor3->SetAfterRender([](const Program* program){
+        glDisable(GL_CULL_FACE);
+    });
+    floor4->SetBeforeRender([](const Program* program){
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+    });
+    floor4->SetAfterRender([](const Program* program){
+        glDisable(GL_CULL_FACE);
+    });
+    floor5->SetBeforeRender([](const Program* program){
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+    });
+    floor5->SetAfterRender([](const Program* program){
+        glDisable(GL_CULL_FACE);
+    });
+    floor6->SetBeforeRender([](const Program* program){
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_FRONT);
+    });
+    floor6->SetAfterRender([](const Program* program){
+        glDisable(GL_CULL_FACE);
+    });
+    scene->AddRenderObject(std::move(floor1));
+    scene->AddRenderObject(std::move(floor2));
+    scene->AddRenderObject(std::move(floor3));
+    scene->AddRenderObject(std::move(floor4));
+    scene->AddRenderObject(std::move(floor5));
+    scene->AddRenderObject(std::move(floor6));
+
     scene->AddRenderObject(std::move(mass_object));
     scene->AddRenderObject(std::move(spring_object));
 }
