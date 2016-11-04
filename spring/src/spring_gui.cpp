@@ -210,8 +210,10 @@ void SpringGUI::RenderMassPlot(){
 }
 
 void SpringGUI::RenderConfigurationPlot(){
+
     std::vector<float>& positions = simulation_->spring_cache().positions_;
     std::vector<float>& velocities = simulation_->spring_cache().velocities_;
+    const int MAX = 10000;
 
     static ImVec4 col = ImVec4(1.0f,1.0f,0.4f,1.0f);
     const ImU32 col32 = ImColor(col);
@@ -231,6 +233,7 @@ void SpringGUI::RenderConfigurationPlot(){
         float y1 = p.y + offset + (velocities[i] + offset_vel)* scale;
         draw_list->AddLine(ImVec2(x, y),
                            ImVec2(x1, y1), col32, 0.5f);
+        if (i > MAX) break;
     }
 }
 
