@@ -121,13 +121,13 @@ void InitSpringSimulation(ifx::GameLoop* game_loop,
                           RenderObject* mass_object){
     ifx::Spring1DParameters params;
     params.initial_mass_object.position = 0.0f;
-    params.initial_mass_object.velocity = 0.1f;
-    params.initial_mass_object.mass = 10.0f;
+    params.initial_mass_object.velocity = 0.0f;
+    params.initial_mass_object.mass = 1.0f;
     params.initial_mass_object.render_object = mass_object;
 
-    params.initial_spring.damping_factor = 0.2f;
-    params.initial_spring.spring_factor = 0.1f;
-    params.initial_spring.amplitude = 1.00f;
+    params.initial_spring.damping_factor = 1.0f;
+    params.initial_spring.spring_factor = 1.0f;
+    params.initial_spring.amplitude = 0.00f;
     params.initial_spring.frequency = 0.1f;
     params.initial_spring.phase_shift = 0.1f;
     params.initial_spring.render_object = spring_object;
