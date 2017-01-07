@@ -17,14 +17,14 @@ SpringGUI::~SpringGUI(){
 
 void SpringGUI::SetDefaultParameters(){
     next_parameters_.initial_mass_object.position = 0.0f;
-    next_parameters_.initial_mass_object.velocity = 0.1f;
-    next_parameters_.initial_mass_object.mass = 10.0f;
+    next_parameters_.initial_mass_object.velocity = 0.0f;
+    next_parameters_.initial_mass_object.mass = 1.0f;
     next_parameters_.initial_mass_object.render_object
             = simulation_->mass_object()->render_object;
 
-    next_parameters_.initial_spring.damping_factor = 0.2f;
-    next_parameters_.initial_spring.spring_factor = 0.1f;
-    next_parameters_.initial_spring.amplitude = 1.00f;
+    next_parameters_.initial_spring.damping_factor = 1.0f;
+    next_parameters_.initial_spring.spring_factor = 1.0f;
+    next_parameters_.initial_spring.amplitude = 0.0f;
     next_parameters_.initial_spring.frequency = 0.1f;
     next_parameters_.initial_spring.phase_shift = 0.1f;
     next_parameters_.initial_spring.equilibrium_function
