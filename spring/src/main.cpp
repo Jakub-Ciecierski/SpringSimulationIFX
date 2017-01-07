@@ -1,6 +1,6 @@
 #include <factory/scene_factory.h>
 #include <factory/render_object_factory.h>
-#include <game_loop/game_loop.h>
+#include <game/game_loop.h>
 #include <object/render_object.h>
 #include <rendering/renderer.h>
 #include <rendering/fbo_rendering/fbo_renderer.h>
@@ -9,16 +9,17 @@
 #include <spring_gui.h>
 
 #include <memory>
+#include <game/factory/game_loop_factory.h>
 
 void InitScene(ifx::GameLoop* game_loop);
 void InitSpringGUI(ifx::GameLoop* game_loop,
                    ifx::SpringSimulation1D* simulation);
 void InitSpringSimulation(ifx::GameLoop* game_loop,
-                          RenderObject* spring_object,
-                          RenderObject* mass_object);
+                          ifx::RenderObject* spring_object,
+                          ifx::RenderObject* mass_object);
 
 void InitScene(ifx::GameLoop* game_loop){
-    ifx::Scene* scene = game_loop->renderer()->scene();
+    auto scene = game_loop->renderer()->scene();
     scene->camera()->moveTo(glm::vec3(-2.84f, -0.57f, -2.84f));
     scene->camera()->rotateTo(glm::vec3(40.96, 4.81, 40.96));
 
@@ -117,8 +118,8 @@ void InitSpringGUI(ifx::GameLoop* game_loop,
 }
 
 void InitSpringSimulation(ifx::GameLoop* game_loop,
-                          RenderObject* spring_object,
-                          RenderObject* mass_object){
+                          ifx::RenderObject* spring_object,
+                          ifx::RenderObject* mass_object){
     ifx::Spring1DParameters params;
     params.initial_mass_object.position = 0.0f;
     params.initial_mass_object.velocity = 0.1f;
@@ -141,11 +142,9 @@ void InitSpringSimulation(ifx::GameLoop* game_loop,
 }
 
 int main() {
-    ifx::GameLoop game_loop(
-            std::move(ifx::RenderObjectFactory().CreateRenderer()));
+    auto game_loop = ifx::GameLoopFactory().Create();
+    InitScene(game_loop.get());
 
-    InitScene(&game_loop);
-
-    game_loop.Start();
+    game_loop->Start();
 }
 
